@@ -32,7 +32,47 @@ var assert = require("assert")
 
 const altNumbers = (numArray) => {
     // TODO: COMPLETE THIS FUNCTION
-    return [];
+    if (numArray.length < 2){
+        // If the array is too small no numbers will need to be rearranged
+        return numArray;
+    } else {
+        // Sort the given array into positive and negative numbers
+        const posNums = [];
+        const negNums = [];
+        for (let i = 0; i < numArray.length; i++) {
+            if (numArray[i] >= 0) {
+                posNums[posNums.length] = numArray[i];
+            } else {
+                negNums[negNums.length] = numArray[i];   
+            }
+        }
+        // Alternate the arrays according to the appropriate order
+        if (posNums.length > negNums.length) {
+            return alternate(posNums, negNums);
+        } else if (posNums.length < negNums.length) {
+            return alternate(negNums, posNums);
+        } else {
+            if (numArray[0] >= 0) {
+                return alternate(posNums, negNums);
+            } else {
+                return alternate(negNums, posNums);
+            }
+        }
+    }
+    
+}
+
+function alternate(beginArray, endArray) {
+    // Alternate the numbers in the correct order
+    const retArray = [];
+    for (let i = 0; i < endArray.length; i++) {
+        retArray[retArray.length] = beginArray[i];
+        retArray[retArray.length] = endArray[i];
+    }
+    if (retArray.length != beginArray.length + endArray.length) {
+        retArray[retArray.length] = beginArray[beginArray.length - 1];
+    }
+    return retArray;
 }
 
 module.exports = { altNumbers } // Do not modify this line
